@@ -9,23 +9,70 @@
       <div class="">
         <!--.label shows the name on the form created on forms.py-->
         {{ form.username.label(class="") }}
-        <!--this shows the field to complete and to pass the value-->
-        {{ form.username(class="") }}
+        <!--This is a validation for username
+           if is wrong then it flashes an error message-->
+        {% if form.username.errors %}
+          {{ form.username(class=("is-invalid"))}}
+            <div class="invalid-feedback">
+              {% for error in form.username.errors %}
+              <span>error</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          <!--this shows the field to complete and to pass the value-->
+          {{ form.username(class="") }}
+        {% endif %}
       </div>
       <!--Email Field-->
       <div class="">
         {{ form.email.label(class="") }}
-        {{ form.email(class="") }}
+        <!--This is a validation for email
+           if is wrong then it flashes an error message-->
+           {% if form.email.errors %}
+           {{ form.email(class=("is-invalid"))}}
+             <div class="invalid-feedback">
+               {% for error in form.email.errors %}
+               <span>error</span>
+               {% endfor %}
+             </div>
+         {% else %}
+           <!--this shows the field to complete and to pass the value-->
+           {{ form.email(class="") }}
+         {% endif %}
       </div>
       <!--Password Field-->
       <div class="">
         {{ form.password.label(class="") }}
-        {{ form.password(class="") }}
+        <!--This is a validation for password
+           if is wrong then it flashes an error message-->
+           {% if form.password.errors %}
+           {{ form.password(class=("is-invalid"))}}
+             <div class="invalid-feedback">
+               {% for error in form.password.errors %}
+               <span>error</span>
+               {% endfor %}
+             </div>
+         {% else %}
+           <!--this shows the field to complete and to pass the value-->
+           {{ form.password(class="") }}
+         {% endif %}
       </div>
       <!--Confirm Password Field-->
       <div class="">
         {{ form.confirm_password.label(class="") }}
-        {{ form.confirm_password(class="") }}
+        <!--This is a validation for confirm_password
+           if is wrong then it flashes an error message-->
+           {% if form.confirm_password.errors %}
+           {{ form.confirm_password(class=("is-invalid"))}}
+             <div class="invalid-feedback">
+               {% for error in form.confirm_password.errors %}
+               <span>error</span>
+               {% endfor %}
+             </div>
+         {% else %}
+           <!--this shows the field to complete and to pass the value-->
+           {{ form.confirm_password(class="") }}
+         {% endif %}
       </div>
     </fieldset>
     <!--Submit Button-->

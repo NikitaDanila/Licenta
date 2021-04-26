@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response, url_for
+from flask import Flask, render_template, Response, url_for, flash, redirect
 from forms import LoginForm, SignupForm
 
 app = Flask(__name__)
@@ -11,15 +11,24 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html', title='About')
-
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        # This needs to be modified
+        if form.email.data == 'a@hamil.com' and form.password.data == 'asa':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('index'))
+    else:
+        flash('Login Unsuccessful. Please check username and possword', 'danger')
     return render_template('login.html', title='Login', form=form)
 
-@app.route('/register')
+@app.route('/register', methods=['GET','POST'])
 def register():
     form = SignupForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('index'))
     return render_template('register.html',title='Sign Up', form=form)
 
 @app.route('/stream')

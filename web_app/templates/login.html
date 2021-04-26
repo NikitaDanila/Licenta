@@ -1,35 +1,68 @@
 {% extends "layout.html" %}
 {% block content %}
 <div>
-  <!--The form is passed from the route-->
+<!--The form is passed from the route-->
   <form method="POST" action="">
     {{ form.hidden_tag() }}
     <fieldset>
       <legend>Log in</legend>
       <div class="">
         {{ form.email.label(class="") }}
-        {{ form.email(class="") }}
+<!--This is a validation for email
+           if is wrong then it flashes an error message-->
+           {% if form.email.errors %}
+           {{ form.email(class=("is-invalid"))}}
+             <div class="invalid-feedback">
+               {% for error in form.email.errors %}
+               <span>error</span>
+               {% endfor %}
+             </div>
+         {% else %}
+<!--this shows the field to complete and to pass the value-->
+           {{ form.email(class="") }}
+         {% endif %}
       </div>
       <div class="">
         {{ form.password.label(class="") }}
-        {{ form.password(class="") }}
+<!--This is a validation for password
+           if is wrong then it flashes an error message-->
+           {% if form.password.errors %}
+           {{ form.password(class=("is-invalid"))}}
+             <div class="invalid-feedback">
+               {% for error in form.password.errors %}
+               <span>error</span>
+               {% endfor %}
+             </div>
+         {% else %}
+<!--this shows the field to complete and to pass the value-->
+           {{ form.password(class="") }}
+         {% endif %}
       </div>
-      <div class="">
-        {{ form.remember.label(class="") }}
-        {{ form.remember(class="") }}
+<!--Remember me <div>-->
+      <div class="form-check">
+        {{ form.remember(class="form-check-input") }}
+        {{ form.remember.label(class="form-check-label") }}
       </div>
-      <div class="">
-        {{ form.submit(class="") }}
+<!--Login <div>-->
+      <div>
+          <div class="">
+            {{ form.submit(class="") }}
+          </div>
+          <small class="text-muted ml-2">
+            <a href="#">Forgot Password?</a>
+          </small>
       </div>
     </fieldset>
   </form>
 </div>
+<!--Bottom Text "Sign up now" <div>-->
 <div>
-  <small class="">
-    Dont have an account? 
+  <small class="text-muted">
+    Don't have an account? 
     <a class="" href="{{ url_for('register') }}">
-      Sign Up!
+      Sign Up Now!
     </a>
   </small>
-</div>
+ </div>
+  
 {% endblock content %}
