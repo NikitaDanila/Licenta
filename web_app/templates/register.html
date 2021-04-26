@@ -1,4 +1,44 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>Sign Up Page</h1>
+<div>
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+      <legend>Join Today</legend>
+      <!--Username field-->
+      <div class="">
+        <!--.label shows the name on the form created on forms.py-->
+        {{ form.username.label(class="") }}
+        <!--this shows the field to complete and to pass the value-->
+        {{ form.username(class="") }}
+      </div>
+      <!--Email Field-->
+      <div class="">
+        {{ form.email.label(class="") }}
+        {{ form.email(class="") }}
+      </div>
+      <!--Password Field-->
+      <div class="">
+        {{ form.password.label(class="") }}
+        {{ form.password(class="") }}
+      </div>
+      <!--Confirm Password Field-->
+      <div class="">
+        {{ form.confirm_password.label(class="") }}
+        {{ form.confirm_password(class="") }}
+      </div>
+    </fieldset>
+    <!--Submit Button-->
+    <dir class="">
+      {{ form.submit(class="") }}
+    </dir>
+  </form>
+</div>
+<div class="">
+  <small class="">
+    <!--For the url_for you need to pass the name of the function 
+        not of the decorator-->
+    Allready have an account? <a class="" href="{{url_for('login')}}">Sign In</a>
+  </small>
+</div>
 {% endblock content %}

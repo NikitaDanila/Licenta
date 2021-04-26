@@ -1,4 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>Login Page</h1>
+<div>
+  <!--The form is passed from the route-->
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset>
+      <legend>Log in</legend>
+      <div class="">
+        {{ form.email.label(class="") }}
+        {{ form.email(class="") }}
+      </div>
+      <div class="">
+        {{ form.password.label(class="") }}
+        {{ form.password(class="") }}
+      </div>
+      <div class="">
+        {{ form.remember.label(class="") }}
+        {{ form.remember(class="") }}
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div>
+  <small class="">
+    Dont have an account? 
+    <a class="" href="{{ url_for('register') }}">
+      Sign Up!
+    </a>
+  </small>
+</div>
 {% endblock content %}
