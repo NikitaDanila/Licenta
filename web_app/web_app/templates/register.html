@@ -5,9 +5,46 @@
     {{ form.hidden_tag() }}
     <fieldset>
       <legend>Join Today</legend>
-      <!--Username field-->
+      <!--firts_name field-->
       <div class="">
+        {{ form.first_name.label(class="") }}
+        <!--This is a validation for first_name
+           if is wrong then it flashes an error message-->
+        {% if form.first_name.errors %}
+          {{ form.first_name(class=("is-invalid"))}}
+            <div class="invalid-feedback">
+              {% for error in form.username.errors %}
+              <span>error</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          <!--this shows the field to complete and to pass the value-->
+          {{ form.first_name(class="") }}
+        {% endif %}
         <!--.label shows the name on the form created on forms.py-->
+      </div>
+      <!--END firts_name field-->
+      <!--last_name field-->
+      <div class="">
+        {{ form.last_name.label(class="") }}
+        <!--This is a validation for first_name
+           if is wrong then it flashes an error message-->
+        {% if form.last_name.errors %}
+          {{ form.last_name(class=("is-invalid"))}}
+            <div class="invalid-feedback">
+              {% for error in form.username.errors %}
+              <span>error</span>
+              {% endfor %}
+            </div>
+        {% else %}
+          <!--this shows the field to complete and to pass the value-->
+          {{ form.last_name(class="") }}
+        {% endif %}
+        <!--.label shows the name on the form created on forms.py-->
+      </div>
+      <!--END last_name field-->
+      <!--Username Field-->
+      <div class="">
         {{ form.username.label(class="") }}
         <!--This is a validation for username
            if is wrong then it flashes an error message-->
@@ -23,6 +60,7 @@
           {{ form.username(class="") }}
         {% endif %}
       </div>
+      <!-- END Username Field-->
       <!--Email Field-->
       <div class="">
         {{ form.email.label(class="") }}
@@ -40,6 +78,7 @@
            {{ form.email(class="") }}
          {% endif %}
       </div>
+      <!-- END Email Field-->
       <!--Password Field-->
       <div class="">
         {{ form.password.label(class="") }}
@@ -57,6 +96,7 @@
            {{ form.password(class="") }}
          {% endif %}
       </div>
+      <!-- END Password Field-->
       <!--Confirm Password Field-->
       <div class="">
         {{ form.confirm_password.label(class="") }}
@@ -73,6 +113,24 @@
            <!--this shows the field to complete and to pass the value-->
            {{ form.confirm_password(class="") }}
          {% endif %}
+        <!--END Confirm Password Field-->
+        <!-- Profesor Token Field-->
+      <div class="">
+        {{ form.profesor_token.label(class="") }}
+        <!--This is a validation for confirm_password
+           if is wrong then it flashes an error message-->
+           {% if form.profesor_token.errors %}
+           {{ form.profesor_token(class=("is-invalid"))}}
+             <div class="invalid-feedback">
+               {% for error in form.confirm_password.errors %}
+               <span>error</span>
+               {% endfor %}
+             </div>
+         {% else %}
+           <!--this shows the field to complete and to pass the value-->
+           {{ form.profesor_token(class="") }}
+         {% endif %}
+        <!--END Profesor Token Field -->
       </div>
     </fieldset>
     <!--Submit Button-->

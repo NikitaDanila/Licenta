@@ -6,12 +6,17 @@ class SignupForm(FlaskForm):
     """Creates the form for the sign up page"""
     username = StringField('Username', 
                             validators=[DataRequired(), Length(min=2, max=20)])
+    first_name = StringField('First Name', 
+                            validators=[DataRequired(), Length(min=2, max=20)])
+    last_name = StringField('Last Name', 
+                            validators=[DataRequired(), Length(min=2, max=20)])                          
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password',
                             validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                             validators=[DataRequired(), EqualTo('password')])
+    profesor_token = StringField('Profesor token', validators=[Length(min=20,max=20)])
     submit = SubmitField('Sign Up')
 
 

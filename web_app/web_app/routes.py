@@ -1,7 +1,8 @@
 from web_app import app
 from flask import render_template, url_for, flash, redirect
 from web_app.forms import LoginForm, SignupForm
-from database.models import Profesor, Student
+from database.models import db, Profesor, Student
+from web_app import bcrypt
 """ Web pages (routes)"""
 
 @app.route('/')
@@ -27,6 +28,8 @@ def login():
 def register():
     form = SignupForm()
     if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        # student = Student(first_name={form.})
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('index'))
     return render_template('register.html',title='Sign Up', form=form)
