@@ -117,25 +117,13 @@
         <!-- Profesor Token Field-->
       <div class="">
         {{ form.profesor_token.label(class="") }}
-        <!--This is a validation for confirm_password
-           if is wrong then it flashes an error message-->
-           {% if form.profesor_token.errors %}
-           {{ form.profesor_token(class=("is-invalid"))}}
-             <div class="invalid-feedback">
-               {% for error in form.confirm_password.errors %}
-               <span>error</span>
-               {% endfor %}
-             </div>
-         {% else %}
-           <!--this shows the field to complete and to pass the value-->
-           {{ form.profesor_token(class="") }}
-         {% endif %}
+        {{ form.profesor_token(class="") }}
         <!--END Profesor Token Field -->
       </div>
     </fieldset>
     <!--Submit Button-->
     <dir class="">
-      {{ form.submit(class="") }}
+      {{ form.submit(class="btn-danger") }}
     </dir>
   </form>
 </div>

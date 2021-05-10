@@ -29,9 +29,17 @@ def register():
     form = SignupForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        # student = Student(first_name={form.})
+        if form.profesor_token.data == "0":
+            profesor = Profesor(email=form.email.data,username=form.username.data,
+                                first_name=form.first_name.data, last_name=form.last_name.data,password=hashed_password)
+            db.session.add(profesor)
+        else:
+            student = Student(email=form.email.data,username=form.username.data,
+                              first_name=form.first_name.data, last_name=form.last_name.data,password=hashed_password)
+            db.session.add(student)
+        db.session.commit()
         flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('register.html',title='Sign Up', form=form)
 
 @app.route('/stream')

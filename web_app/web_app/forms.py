@@ -16,7 +16,7 @@ class SignupForm(FlaskForm):
                             validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                             validators=[DataRequired(), EqualTo('password')])
-    profesor_token = StringField('Profesor token', validators=[Length(min=20,max=20)])
+    profesor_token = StringField('Profesor token', validators=[Length(min=20,max=20)], default=0)
     submit = SubmitField('Sign Up')
 
 
