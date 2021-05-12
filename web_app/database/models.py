@@ -1,4 +1,3 @@
-from enum import unique
 from web_app import db
 
 class Profesor(db.Model):
@@ -22,7 +21,6 @@ class Student(db.Model):
     last_name = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(60), nullable=False)
     admin = db.Column(db.Integer, nullable=False, default=0)
-
 
     def __repr__(self):
         return f"Elev:\nid_elev: {self.id_student}\nfirst_name: {self.first_name}\nlast_name: {self.last_name}"

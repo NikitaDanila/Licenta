@@ -1,8 +1,7 @@
-from web_app import app
+from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect
 from web_app.forms import LoginForm, SignupForm
-from database.models import db, Profesor, Student
-from web_app import bcrypt
+from database.models import Profesor, Student
 """ Web pages (routes)"""
 
 @app.route('/')
@@ -29,7 +28,7 @@ def register():
     form = SignupForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        if form.profesor_token.data == "0":
+        if form.profesor_token.data == "1":
             profesor = Profesor(email=form.email.data,username=form.username.data,
                                 first_name=form.first_name.data, last_name=form.last_name.data,password=hashed_password)
             db.session.add(profesor)
