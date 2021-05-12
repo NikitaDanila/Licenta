@@ -35,6 +35,7 @@ def register():
     form = SignupForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        # Validation for the profesor token, if the token is correct then it gives admin
         if form.profesor_token.data == "1":
             user = User(email=form.email.data,username=form.username.data,
                                 first_name=form.first_name.data, last_name=form.last_name.data,password=hashed_password, admin=1)
