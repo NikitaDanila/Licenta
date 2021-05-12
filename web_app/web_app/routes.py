@@ -1,7 +1,7 @@
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect
 from web_app.forms import LoginForm, SignupForm
-from database.models import Profesor, Student
+from database.models import User
 from flask_login import login_user
 """ Web pages (routes)"""
 
@@ -16,20 +16,13 @@ def about():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if Profesor.query.filter_by(email=form.email.data).first:
-            profesor = Profesor.query.filter_by(email=form.email.data).first()
-            if profesor and bcrypt.check_password_hash(profesor.password, form.password.data):
-                login_user(profesor, remember=form.remember.data)
+            user = User.query.filter_by(email=form.email.data).first()
+            if user and bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user, remember=form.remember.data)
                 return(redirect(url_for('index')))
             else:
                 flash('Login Unsuccessful. Please check emails and possword', 'danger')
-        elif Student.query.filter_by(email=form.email.data).first:
-            student = Student.query.filter_by(email=form.email.data).first()
-            if student and bcrypt.check_password_hash(student.password, form.password.data):
-                login_user(student, remember=form.remember.data)
-                return(redirect(url_for('index')))
-            else:
-                flash('Login Unsuccessful. Please check emails and possword', 'danger')
+        
     return render_template('login.html', title='Login', form=form)
 
 @app.route('/register', methods=['GET','POST'])
@@ -38,13 +31,13 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         if form.profesor_token.data == "1":
-            profesor = Profesor(email=form.email.data,username=form.username.data,
-                                first_name=form.first_name.data, last_name=form.last_name.data,password=hashed_password)
-            db.session.add(profesor)
+            user = User(email=form.email.data,username=form.username.data,
+                                first_name=form.first_name.data, last_name=form.last_name.data,password=hashed_password, admin=1)
+            db.session.add(user)
         else:
-            student = Student(email=form.email.data,username=form.username.data,
+            user = User(email=form.email.data,username=form.username.data,
                               first_name=form.first_name.data, last_name=form.last_name.data,password=hashed_password)
-            db.session.add(student)
+            db.session.add(user)
         db.session.commit()
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('login'))
