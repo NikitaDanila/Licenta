@@ -2,6 +2,7 @@ from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect
 from web_app.forms import LoginForm, SignupForm
 from database.models import Profesor, Student
+from flask_login import login_user
 """ Web pages (routes)"""
 
 @app.route('/')
@@ -15,12 +16,20 @@ def about():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        # This needs to be modified
-        if form.email.data == 'a@hamil.com' and form.password.data == 'asa':
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('index'))
-    else:
-        flash('Login Unsuccessful. Please check username and possword', 'danger')
+        if Profesor.query.filter_by(email=form.email.data).first:
+            profesor = Profesor.query.filter_by(email=form.email.data).first()
+            if profesor and bcrypt.check_password_hash(profesor.password, form.password.data):
+                login_user(profesor, remember=form.remember.data)
+                return(redirect(url_for('index')))
+            else:
+                flash('Login Unsuccessful. Please check emails and possword', 'danger')
+        elif Student.query.filter_by(email=form.email.data).first:
+            student = Student.query.filter_by(email=form.email.data).first()
+            if student and bcrypt.check_password_hash(student.password, form.password.data):
+                login_user(student, remember=form.remember.data)
+                return(redirect(url_for('index')))
+            else:
+                flash('Login Unsuccessful. Please check emails and possword', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 @app.route('/register', methods=['GET','POST'])
