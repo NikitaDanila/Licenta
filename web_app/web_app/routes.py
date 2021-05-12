@@ -1,8 +1,9 @@
-from web_app import app, db, bcrypt
-from flask import render_template, url_for, flash, redirect
+from web_app import app, db, bcrypt, camera
+from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm
 from database.models import User
 from flask_login import login_user, current_user, logout_user
+
 """ Web pages (routes)"""
 
 @app.route('/')
@@ -49,11 +50,20 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html',title='Sign Up', form=form)
 
-@app.route('/stream')
-def stream():
-    return render_template('stream.html', title='Stream')
-
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+@app.route('/stream')
+def stream():
+    return Response(gen(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    # return render_template('stream.html', title='Stream')
