@@ -9,6 +9,9 @@ from camera import Camera
 
 @app.route('/')
 def index():
+    if not current_user.is_authenticated:
+        return redirect(url_for('register'))
+
     return render_template('index.html',title='index')
 
 @app.route('/about')
@@ -61,6 +64,10 @@ def gen(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+@app.route('/live')
+def live():
+    return render_template('stream.html', title='Stream')
 
 @app.route('/stream')
 def stream():
