@@ -1,8 +1,9 @@
-from web_app import app, db, bcrypt, camera
+from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm
 from database.models import User
 from flask_login import login_user, current_user, logout_user
+from camera import Camera
 
 """ Web pages (routes)"""
 
@@ -61,9 +62,8 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-
 @app.route('/stream')
 def stream():
-    return Response(gen(),
+    return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('stream.html', title='Stream')
