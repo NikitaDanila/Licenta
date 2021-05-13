@@ -29,7 +29,7 @@ class Camera(object):
         with picamera.PiCamera() as camera:
             # camera setup
             camera.resolution = (320, 240)
-            camera.hflip = True
+            camera.rotation = 270
             camera.framerate = 30
             # let camera warm up
             camera.start_preview()
