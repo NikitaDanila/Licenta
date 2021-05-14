@@ -1,3 +1,4 @@
+from flask.globals import request
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm, CloseForm
@@ -21,14 +22,14 @@ def about():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('live'))
     form = LoginForm()
     if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
                 flash(f'logged in as {form.email.data}')
-                return(redirect(url_for('index')))
+                return(redirect(url_for('live')))
             else:
                 flash('Login Unsuccessful. Please check emails and possword', 'danger')
         
@@ -65,6 +66,10 @@ def gen(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+def close_stream():
+    from camera import Camera
+    Camera.last_access = 11
+    print('stream closed')
 
 @app.route('/live-video', methods=['GET','POST'])
 def live():
@@ -73,7 +78,12 @@ def live():
         flash('Please log in to access', 'error')
         return redirect(url_for('login'))
     else:
-        return render_template('stream.html',form=form, title='Live Video')
+        if form.validate_on_submit():
+            # if form.validate_on_submit():
+            # close_stream()
+            return redirect(url_for('end_stream'))
+
+    return render_template('stream.html',form=form, title='Live Video')
 
 @app.route('/stream')
 def stream():
@@ -84,3 +94,7 @@ def stream():
         return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('stream.html', title='Stream')
+
+@app.route('/end-stream')
+def end_stream():
+    return render_template('close_stream.html', title='END Video')
