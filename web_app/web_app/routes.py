@@ -10,7 +10,8 @@ from camera import Camera
 @app.route('/')
 def index():
     if not current_user.is_authenticated:
-        return redirect(url_for('register'))
+        flash('Please log in to access', 'error')
+        return redirect(url_for('login'))
 
     return render_template('index.html',title='index')
 
@@ -68,10 +69,18 @@ def gen(camera):
 @app.route('/live-video', methods=['GET','POST'])
 def live():
     form = CloseForm()
-    return render_template('stream.html',form=form, title='Live Video')
+    if not current_user.is_authenticated:
+        flash('Please log in to access', 'error')
+        return redirect(url_for('login'))
+    else:
+        return render_template('stream.html',form=form, title='Live Video')
 
 @app.route('/stream')
 def stream():
-    return Response(gen(Camera()),
+    if not current_user.is_authenticated:
+        flash('Please log in to access', 'error')
+        return redirect(url_for('login'))
+    else:
+        return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('stream.html', title='Stream')
