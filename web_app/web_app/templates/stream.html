@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Stream page</h1>
-<div class='.img-responsive'>
-    <img class='.img-responsive'src="{{ url_for('stream') }}" height="769" width="1024">
+<div class='container'>
+    <img class='.img-responsive'src="{{ url_for('stream') }}" height="768" width="1024">
+</div>
+<div>
+    <button>{{ form.close_button }}</button>
 </div>
 {% endblock content %}

@@ -51,3 +51,6 @@ class Camera(object):
                 if time.time() - cls.last_access > 10:
                     break
         cls.thread = None
+    @classmethod
+    def close_stream():
+        Camera.camera.stop_preview()

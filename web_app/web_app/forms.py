@@ -28,3 +28,6 @@ class LoginForm(FlaskForm):
                             validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class CloseForm(FlaskForm):
+    close_button = SubmitField('Close')

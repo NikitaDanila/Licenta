@@ -1,6 +1,6 @@
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
-from web_app.forms import LoginForm, SignupForm
+from web_app.forms import LoginForm, SignupForm, CloseForm
 from database.models import User
 from flask_login import login_user, current_user, logout_user
 from camera import Camera
@@ -65,9 +65,10 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/live')
+@app.route('/live-video', methods=['GET','POST'])
 def live():
-    return render_template('stream.html', title='Stream')
+    form = CloseForm()
+    return render_template('stream.html',form=form, title='Live Video')
 
 @app.route('/stream')
 def stream():
