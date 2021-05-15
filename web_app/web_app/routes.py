@@ -1,3 +1,4 @@
+from flask.globals import request
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm, CloseForm
@@ -10,26 +11,28 @@ from camera import Camera
 @app.route('/')
 def index():
     if not current_user.is_authenticated:
-        return redirect(url_for('register'))
+        flash('Please log in to access', 'error')
+        return redirect(url_for('login'))
 
     return render_template('index.html',title='index')
 
 @app.route('/about')
 def about():
     return render_template('about.html', title='About')
+
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('live'))
     form = LoginForm()
     if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
-                flash(f'logged in as {form.email.data}')
-                return(redirect(url_for('index')))
+                flash(f'logged in as {form.email.data}', 'success')
+                return(redirect(url_for('live')))
             else:
-                flash('Login Unsuccessful. Please check emails and possword', 'danger')
+                flash('Login Unsuccessful. Please check emails and password', 'warning')
         
     return render_template('login.html', title='Login', form=form)
 
@@ -57,6 +60,7 @@ def register():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash("Succesfully logged out", 'success')
     return redirect(url_for('login'))
 
 def gen(camera):
@@ -64,14 +68,30 @@ def gen(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+def close_stream():
+    from camera import Camera
+    Camera.last_access = 11
+    print('stream closed')
 
-@app.route('/live-video', methods=['GET','POST'])
+@app.route('/live-video', methods=['GET'])
 def live():
     form = CloseForm()
+    if not current_user.is_authenticated:
+        flash('Please log in to access', 'danger')
+        return redirect(url_for('login'))
+
     return render_template('stream.html',form=form, title='Live Video')
 
 @app.route('/stream')
 def stream():
-    return Response(gen(Camera()),
+    if not current_user.is_authenticated:
+        flash('Please log in to access', 'danger')
+        return redirect(url_for('login'))
+    else:
+        return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('stream.html', title='Stream')
+
+@app.route('/end-stream')
+def end_stream():
+    return render_template('close_stream.html', title='END Video')

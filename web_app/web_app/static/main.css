@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    background: #fafafa;
+    color: #333333;
+    margin-top: 5rem;
+    align-items: center;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #2a2a2a;
+  }
+  
+  .bg-dark {
+    background-color: #2b2d2f;
+  }
+  
+  .site-header .navbar-nav .nav-link {
+    color: #bbc4cc;
+  }
+  
+  .site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+  }
+  
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+  
+  .content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
