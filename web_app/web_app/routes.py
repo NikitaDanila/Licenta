@@ -77,7 +77,7 @@ def close_stream():
 def live():
     form = CloseForm()
     if not current_user.is_authenticated:
-        flash('Please log in to access', 'error')
+        flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
     else:
         if form.validate_on_submit():
@@ -90,7 +90,7 @@ def live():
 @app.route('/stream')
 def stream():
     if not current_user.is_authenticated:
-        flash('Please log in to access', 'error')
+        flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
     else:
         return Response(gen(Camera()),
