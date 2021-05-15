@@ -13,7 +13,7 @@ class SignupForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email(message='Please enter a valid Email')])
     password = PasswordField('Password',
-                            validators=[DataRequired(), Length(min=2, max=20, message='Please enter a valid Email')])
+                            validators=[DataRequired(), Length(min=2, max=20, message='Please enter a valid Password')])
     confirm_password = PasswordField('Confirm Password',
                             validators=[DataRequired(), Length(min=2, max=20, message='Please enter a valid Password'), EqualTo('password', message='The passwords do not match')])
     profesor_token = PasswordField('Profesor token', validators=[Length(min=0,max=20)], default=0)

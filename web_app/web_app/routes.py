@@ -32,7 +32,7 @@ def login():
                 flash(f'logged in as {form.email.data}', 'success')
                 return(redirect(url_for('live')))
             else:
-                flash('Login Unsuccessful. Please check emails and password', 'warning')
+                flash('Login Unsuccessful. Please check email and password', 'warning')
         
     return render_template('login.html', title='Login', form=form)
 
