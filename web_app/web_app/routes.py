@@ -73,17 +73,12 @@ def close_stream():
     Camera.last_access = 11
     print('stream closed')
 
-@app.route('/live-video', methods=['GET','POST'])
+@app.route('/live-video', methods=['GET'])
 def live():
     form = CloseForm()
     if not current_user.is_authenticated:
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
-    else:
-        if form.validate_on_submit():
-            # if form.validate_on_submit():
-            # close_stream()
-            return redirect(url_for('end_stream'))
 
     return render_template('stream.html',form=form, title='Live Video')
 

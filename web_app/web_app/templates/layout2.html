@@ -9,7 +9,9 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" 
           crossorigin="anonymous">
           
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
     <!--Title of the page-->
     {% if title%}
         <title>{{title}}</title>
@@ -18,7 +20,7 @@
     {% endif %}
 </head>
 <body>
-    <header class="site-header">
+    <header class="site-header"></header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <div class="container">
                 <div>
@@ -43,12 +45,23 @@
     <main class="container-fluid">
         <div class='row'>
           <div class="col-sm-6">
+            <!--Showing the messages-->
             {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
                 {% for category, message in messages %}
-                  <div class="alert alert-{{ category }}" role='alert'>
-                    {{ message }}
-                  </div>
+                    <div class="alert alert-{{ category }}" role='alert'>
+                        {{ message }}
+                        <!--Script for the messages to disappear-->
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                window.setTimeout(function() {
+                                    $(".alert").fadeTo(2000, 500).slideUp(1000, function(){
+                                        $(this).remove(); 
+                                    });
+                                });
+                            });
+                        </script>
+                    </div>
                 {% endfor %}
               {% endif %}
             {% endwith %}
