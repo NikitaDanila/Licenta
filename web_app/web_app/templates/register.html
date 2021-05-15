@@ -1,135 +1,82 @@
 {% extends "layout2.html" %}
 {% block content %}
-<div>
+<div class="container-fluid">
   <form method="POST" action="">
     {{ form.hidden_tag() }}
     <fieldset>
       <legend>Join Today</legend>
       <!--firts_name field-->
-      <div class="">
+      <div class="form-group">
         {{ form.first_name.label(class="") }}
-        <!--This is a validation for first_name
-           if is wrong then it flashes an error message-->
-        {% if form.first_name.errors %}
-          {{ form.first_name(class=("is-invalid"))}}
-            <div class="invalid-feedback">
-              {% for error in form.username.errors %}
-              <span>error</span>
-              {% endfor %}
-            </div>
-        {% else %}
-          <!--this shows the field to complete and to pass the value-->
-          {{ form.first_name(class="") }}
-        {% endif %}
-        <!--.label shows the name on the form created on forms.py-->
+        {{ form.first_name(class='form-control py-1')}}
       </div>
+      {% if form.first_name.errors %}
+        <div class="errors">{% for error in form.first_name.errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
       <!--END firts_name field-->
       <!--last_name field-->
-      <div class="">
+      <div class="form-group">
         {{ form.last_name.label(class="") }}
-        <!--This is a validation for first_name
-           if is wrong then it flashes an error message-->
-        {% if form.last_name.errors %}
-          {{ form.last_name(class=("is-invalid"))}}
-            <div class="invalid-feedback">
-              {% for error in form.username.errors %}
-              <span>error</span>
-              {% endfor %}
-            </div>
-        {% else %}
-          <!--this shows the field to complete and to pass the value-->
-          {{ form.last_name(class="") }}
-        {% endif %}
-        <!--.label shows the name on the form created on forms.py-->
+        {{ form.last_name(class='form-control py-1')}}
       </div>
+      {% if form.last_name.errors %}
+        <div class="errors">{% for error in form.last_name.errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
       <!--END last_name field-->
       <!--Username Field-->
-      <div class="">
+      <div class="form-group">
         {{ form.username.label(class="") }}
-        <!--This is a validation for username
-           if is wrong then it flashes an error message-->
-        {% if form.username.errors %}
-          {{ form.username(class=("is-invalid"))}}
-            <div class="invalid-feedback">
-              {% for error in form.username.errors %}
-              <span>error</span>
-              {% endfor %}
-            </div>
-        {% else %}
-          <!--this shows the field to complete and to pass the value-->
-          {{ form.username(class="") }}
-        {% endif %}
+        {{ form.username(class='form-control py-1')}}
       </div>
+      {% if form.username.errors %}
+        <div class="errors">{% for error in form.username.errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
       <!-- END Username Field-->
       <!--Email Field-->
-      <div class="">
+      <div class="form-group">
         {{ form.email.label(class="") }}
-        <!--This is a validation for email
-           if is wrong then it flashes an error message-->
-           {% if form.email.errors %}
-           {{ form.email(class=("is-invalid"))}}
-             <div class="invalid-feedback">
-               {% for error in form.email.errors %}
-               <span>error</span>
-               {% endfor %}
-             </div>
-         {% else %}
-           <!--this shows the field to complete and to pass the value-->
-           {{ form.email(class="") }}
-         {% endif %}
+        {{ form.email(class='form-control py-1')}}
       </div>
+      {% if form.email.errors %}
+        <div class="errors">{% for error in form.email.errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
       <!-- END Email Field-->
       <!--Password Field-->
-      <div class="">
+      <div class="form-group">
         {{ form.password.label(class="") }}
-        <!--This is a validation for password
-           if is wrong then it flashes an error message-->
-           {% if form.password.errors %}
-           {{ form.password(class=("is-invalid"))}}
-             <div class="invalid-feedback">
-               {% for error in form.password.errors %}
-               <span>error</span>
-               {% endfor %}
-             </div>
-         {% else %}
-           <!--this shows the field to complete and to pass the value-->
-           {{ form.password(class="") }}
-         {% endif %}
+        {{ form.password(class='form-control py-1')}}
       </div>
+      {% if form.password.errors %}
+        <div class="errors">{% for error in form.password.errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
       <!-- END Password Field-->
       <!--Confirm Password Field-->
-      <div class="">
+      <div class="form-group">
         {{ form.confirm_password.label(class="") }}
-        <!--This is a validation for confirm_password
-           if is wrong then it flashes an error message-->
-           {% if form.confirm_password.errors %}
-           {{ form.confirm_password(class=("is-invalid"))}}
-             <div class="invalid-feedback">
-               {% for error in form.confirm_password.errors %}
-               <span>error</span>
-               {% endfor %}
-             </div>
-         {% else %}
-           <!--this shows the field to complete and to pass the value-->
-           {{ form.confirm_password(class="") }}
-         {% endif %}
-        <!--END Confirm Password Field-->
+        {{ form.confirm_password(class='form-control py-1')}}
+      </div>
+      {% if form.confirm_password.errors %}
+        <div class="errors">{% for error in form.confirm_password.errors %}{{ error }}{% endfor %}</div>
+      {% endif %}
         <!-- Profesor Token Field-->
-      <div class="">
-        {{ form.profesor_token.label(class="") }}
-        {{ form.profesor_token(class="") }}
+        <div class="form-group mx-auto">
+          {{ form.profesor_token.label(class="") }}
+          {{ form.profesor_token(class='form-control py-1')}}
+        </div>
+        {% if form.profesor_token.errors %}
+          <div class="errors">{% for error in form.profesor_token.errors %}{{ error }}{% endfor %}</div>
+        {% endif %}
         <!--END Profesor Token Field -->
         <!--Submit Button-->
-    <dir class="">
-      {{ form.submit() }}
-    </dir>  
+    <div class="mx-auto">
+      {{ form.submit(class="btn btn-primary.disabled btn-primary") }}
+    </div>  
       </div>
     </fieldset>
-    
   </form>
 </div>
-<div class="">
-  <small class="">
+<div class="container-fluid mx-auto">
+  <small class="text-muted">
     <!--For the url_for you need to pass the name of the function 
         not of the decorator-->
     Allready have an account? <a class="" href="{{url_for('login')}}">Sign In</a>
