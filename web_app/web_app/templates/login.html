@@ -4,9 +4,8 @@
   <!--The form is passed from the route-->
   <form method="POST" action="" class="form-group justify-content-center">
     {{ form.hidden_tag() }}
-    <div class="justify-content-center">
-      <fieldset class="container text-center form-group justify-content-center">
-        <legend>Log in</legend>
+      <fieldset class="text-center">
+        <legend class="">Log in</legend>
         <div class="container">
           <div>
             {{ form.email.label(class="form-label") }}
@@ -59,7 +58,6 @@
           </small>
         </div>
       </fieldset>
-    </div>
   </form>
 </div>
 {% endblock content %}

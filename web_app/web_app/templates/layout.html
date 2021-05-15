@@ -45,17 +45,24 @@
     </header>
 
       <!--Displaying the flash messages-->
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-        <div class="{{ category }}">
-          {{ message }}
+      <main class="container" role="main">
+        <div class="row">
+          <div class="col-md-8">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith%}
+
+            {% block content %}{% endblock content %}
+          </div>
         </div>
-        {% endfor %}
-      {% endif %}
-      {% endwith%}
-      {% block content %}
-      {% endblock content %}
+      </main>
+      
     
     
     <!-- Bootstrap Bundle with Popper -->
