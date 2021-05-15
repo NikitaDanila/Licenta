@@ -1,15 +1,17 @@
 body {
+    display: flex;
     background: #fafafa;
     color: #333333;
     margin-top: 5rem;
+    align-items: center;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    color: #444444;
+    color: #2a2a2a;
   }
   
-  .bg-steel {
-    background-color: #5f788a;
+  .bg-dark {
+    background-color: #2b2d2f;
   }
   
   .site-header .navbar-nav .nav-link {

@@ -19,6 +19,7 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html', title='About')
+
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
@@ -28,10 +29,10 @@ def login():
             user = User.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
-                flash(f'logged in as {form.email.data}')
+                flash(f'logged in as {form.email.data}', 'success')
                 return(redirect(url_for('live')))
             else:
-                flash('Login Unsuccessful. Please check emails and possword', 'danger')
+                flash('Login Unsuccessful. Please check emails and password', 'warning')
         
     return render_template('login.html', title='Login', form=form)
 
@@ -59,6 +60,7 @@ def register():
 @app.route('/logout')
 def logout():
     logout_user()
+    flash("Succesfully logged out", 'success')
     return redirect(url_for('login'))
 
 def gen(camera):
