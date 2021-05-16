@@ -68,10 +68,6 @@ def gen(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-def close_stream():
-    from camera import Camera
-    Camera.last_access = 11
-    print('stream closed')
 
 @app.route('/live-video', methods=['GET'])
 def live():
