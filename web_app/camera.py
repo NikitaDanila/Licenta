@@ -32,7 +32,7 @@ class Camera(object):
             camera.rotation = 270
             camera.framerate = 30
             # let camera warm up
-            camera.start_preview()
+            # camera.start_preview()
             time.sleep(2)
 
             stream = io.BytesIO()
@@ -51,6 +51,3 @@ class Camera(object):
                 if time.time() - cls.last_access > 10:
                     break
         cls.thread = None
-    @classmethod
-    def close_stream():
-        Camera.camera.stop_preview()
