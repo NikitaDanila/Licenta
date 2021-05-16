@@ -3,6 +3,7 @@ import io
 import time
 import picamera
 from base_camera import BaseCamera
+from web_app.forms import CloseForm
 
 
 class Camera(BaseCamera):
@@ -24,3 +25,7 @@ class Camera(BaseCamera):
                 # reset stream for next frame
                 stream.seek(0)
                 stream.truncate()
+                form = CloseForm()
+                if form.validate_on_submit():
+                    break
+                

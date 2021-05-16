@@ -87,7 +87,3 @@ def stream():
         return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('stream.html', title='Stream')
-
-@app.route('/end-stream')
-def end_stream():
-    return render_template('close_stream.html', title='END Video')
