@@ -9,6 +9,8 @@ class Camera(BaseCamera):
     @staticmethod
     def frames():
         with picamera.PiCamera() as camera:
+            camera.resolution = (240, 320)
+            camera.rotation = 270
             # let camera warm up
             time.sleep(2)
 

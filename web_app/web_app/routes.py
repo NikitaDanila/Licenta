@@ -4,7 +4,7 @@ from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm, CloseForm
 from database.models import User
 from flask_login import login_user, current_user, logout_user
-from camera import Camera
+from camera_pi import Camera
 
 """ Web pages (routes)"""
 
