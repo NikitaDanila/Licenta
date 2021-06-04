@@ -87,3 +87,7 @@ def stream():
         return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('stream.html', title='Stream')
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html', title='Admin Page')
