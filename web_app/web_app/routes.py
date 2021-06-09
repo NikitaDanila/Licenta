@@ -10,11 +10,12 @@ from camera_pi import Camera
 
 @app.route('/')
 def index():
+    form=LoginForm()
     if not current_user.is_authenticated:
-        flash('Please log in to access', 'error')
+        flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
-
-    return render_template('index.html',title='index')
+        
+    return render_template('login.html', title='Login', form=form)
 
 @app.route('/about')
 def about():
@@ -87,3 +88,15 @@ def stream():
         return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('stream.html', title='Stream')
+
+@app.route('/admin')
+def admin():
+    if current_user.is_authenticated:
+        return render_template('admin.html', title='Admin Page')
+    else:
+        flash('Please log in to access', 'danger')
+        return redirect(url_for('login'))
+
+@app.route('/to-do')
+def to_do():
+    return render_template('to-do.html', title='To do')

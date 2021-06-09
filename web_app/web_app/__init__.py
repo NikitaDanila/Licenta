@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_admin import Admin
 
 # Creating aplication
 app = Flask(__name__)
@@ -18,5 +19,11 @@ bcrypt = Bcrypt()
 
 # Login
 login_manager = LoginManager(app)
+from database.models import  MyAdminIndexView, MyModelView, User
+admin = Admin(app, template_mode='bootstrap4', index_view=MyAdminIndexView())
+admin.add_view(MyModelView(User,db.session))
+
+# Admin
+# admin.add_view(MyAdminIndexView(User, db.session))
 
 from web_app import routes
