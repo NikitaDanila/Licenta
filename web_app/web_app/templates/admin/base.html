@@ -56,12 +56,16 @@
                 </ul>
             {% endblock %}
 
-                {% block menu_links %}
-                <ul class="nav navbar-nav navbar-right">
-                    {{ layout.menu_links() }}
-                </ul>
+            {% block menu_links %}
+            <ul class="nav navbar-nav navbar-right">
+                {{ layout.menu_links() }}
+            </ul>
+            {% endblock %}
 
-                {% endblock %}
+            {% block back %}
+                
+            {% endblock %}
+
             {% block access_control %}
 
             {% endblock %}

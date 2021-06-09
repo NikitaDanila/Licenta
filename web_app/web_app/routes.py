@@ -24,14 +24,14 @@ def about():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('live'))
+        return redirect(url_for('experiment_select'))
     form = LoginForm()
     if form.validate_on_submit():
             user = User.query.filter_by(email=form.email.data).first()
             if user and bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
                 flash(f'logged in as {form.email.data}', 'success')
-                return(redirect(url_for('live')))
+                return(redirect(url_for('experiment_select')))
             else:
                 flash('Login Unsuccessful. Please check email and password', 'warning')
         
@@ -70,8 +70,16 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+@app.route('/experiment-select')
+def experiment_select():
+    if current_user.is_authenticated:
+        return render_template('experiment_templates.html', title='Experiment Templates')
+    else:
+        flash('Please log in to access', 'danger')
+        return redirect(url_for('login'))
+
 @app.route('/live-video', methods=['GET'])
-def live():
+def live_video():
     form = CloseForm()
     if not current_user.is_authenticated:
         flash('Please log in to access', 'danger')

@@ -1,9 +1,9 @@
 {% extends "layout2.html" %}
 {% block content %}
-<div class="container-fluid">
+
   <form method="POST" action="">
     {{ form.hidden_tag() }}
-    <fieldset>
+    <fieldset class="content-section col-3 align-content-between">
       <legend>Join Today</legend>
       <!--firts_name field-->
       <div class="form-group">
@@ -74,7 +74,7 @@
       </div>
     </fieldset>
   </form>
-</div>
+
 <div class="container-fluid mx-auto">
   <small class="text-muted">
     <!--For the url_for you need to pass the name of the function 

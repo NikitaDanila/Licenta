@@ -1,5 +1,12 @@
+
 {% extends 'admin/master.html' %}
 
 {% block body %}
-  <p>Hello world</p>
+<button id='go_back'>Go back</button>
+
+<script type="text/javascript">
+  document.getElementById('go_back').onclick = function(){
+      location.href = " {{ url_for('experiment_select') }} "
+  }
+</script>
 {% endblock %}
