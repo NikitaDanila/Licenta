@@ -81,6 +81,20 @@ body {
     box-shadow: var(--color-btn-primary-shadow),var(--color-btn-primary-inset-shadow);
 }
 
+.table {
+  border-spacing: auto;
+  margin: auto;
+  background-color: #f5f5ff;
+}
+.table__row:nth-child(even) {
+  background-color: #e5e5e5;
+}
+.table__header{
+  text-align: justify;
+}
+.table__cell{
+  padding: 8px;
+}
 .stream {
   width: 720;
   height: 480;
