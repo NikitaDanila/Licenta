@@ -13,7 +13,9 @@
                     </svg>
                     <div class="card-body">
                         <p class="card-text">
-                            Experiment ex1
+                            {% for one_description in descriptions %}
+                                {{ one_description.description}}
+                            {% endfor %}
                         </p>
                         <div class="d-flex justify-content-between align-items-center"> 
                             <div class="btn-group">

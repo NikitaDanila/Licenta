@@ -16,7 +16,7 @@ class Experiments(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     experiment_name = db.Column(db.String(30), nullable=False, unique=True)
     data_colected = db.Column(db.Integer)
-    decription = db.Column(db.String(300), default="")
+    description = db.Column(db.String(300), default="")
 
     @classmethod
     def get_headers(self):
@@ -28,7 +28,7 @@ class Experiments(db.Model):
         exper = Experiments.query.filter_by(experiment_name=experiment_name).first()
         data = (str(exper.id), exper.experiment_name, str(exper.data_colected))
         return data
-
+        
     def __repr__(self):
             return f"id:\n{self.id}\n experiment_name: {self.experiment_name}\n data_colected: {self.data_colected}"
 
