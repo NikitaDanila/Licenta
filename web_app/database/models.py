@@ -51,6 +51,7 @@ class User(db.Model, UserMixin):
 
 class MyModelView(ModelView):
     def is_accessible(self):
+        if current_user.admin == 1:
             return current_user.is_authenticated
     
     def inaccessible_callback(self, name, **kwargs):
@@ -58,12 +59,10 @@ class MyModelView(ModelView):
         return redirect(url_for('login'))
 
 class MyAdminIndexView(AdminIndexView):
-    # def is_accessible(self):
-    #     user = load_user(User.get_id(self))
-    #     if user.admin == 1:
-    #         return current_user.is_authenticated
-    pass
-
+    def is_accessible(self):
+            if current_user.admin == 1:
+                return current_user.is_authenticated
+        
     def inaccessible_callback(self, name, **kwargs):
         flash("You don't have permissions", 'danger')
         return redirect(url_for('login'))

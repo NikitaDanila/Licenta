@@ -1,8 +1,9 @@
+from flask_login.utils import login_required
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm
 from database.models import User, Experiments
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 from camera_pi import Camera
 
 """ Web pages (routes)"""
@@ -102,8 +103,9 @@ def stream():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/admin')
+@login_required
 def admin():
-    if current_user.is_authenticated:
+    if current_user.admin == 1:
         return render_template('admin.html', title='Admin Page')
     else:
         flash('Please log in to access', 'danger')
