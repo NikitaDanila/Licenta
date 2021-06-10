@@ -23,7 +23,4 @@ from database.models import  MyAdminIndexView, MyModelView, User
 admin = Admin(app, template_mode='bootstrap4', index_view=MyAdminIndexView(), url='/admin')
 admin.add_view(MyModelView(User,db.session))
 
-# Admin
-# admin.add_view(MyAdminIndexView(User, db.session))
-
 from web_app import routes
