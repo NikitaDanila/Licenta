@@ -76,8 +76,11 @@ def experiment_select():
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
 
-@app.route('/live-video', methods=['GET','POST'])
+@app.route('/live-video')
 def live_video():
+    if not current_user.is_authenticated:
+        flash('Please log in to access', 'danger')
+        return redirect(url_for('login'))
     return render_template('only_stream.html')
 
 @app.route('/live-video/<experiment_name>', methods=['GET','POST'])

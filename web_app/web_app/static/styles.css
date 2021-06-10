@@ -12,3 +12,7 @@
   .table__cell{
     padding: 8px;
   }
+  .stream {
+    width: 720;
+    height: 480;
+  }
