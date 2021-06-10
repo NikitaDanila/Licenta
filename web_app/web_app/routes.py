@@ -1,7 +1,6 @@
-from flask.globals import request
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
-from web_app.forms import LoginForm, SignupForm, CloseForm
+from web_app.forms import LoginForm, SignupForm
 from database.models import User, Experiments
 from flask_login import login_user, current_user, logout_user
 from camera_pi import Camera
@@ -12,7 +11,6 @@ from camera_pi import Camera
 def index():
     form=LoginForm()
     if not current_user.is_authenticated:
-        flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
         
     return render_template('login.html', title='Login', form=form)
@@ -80,13 +78,15 @@ def experiment_select():
 
 @app.route('/live-video', methods=['GET','POST'])
 def live_video():
-    experiment_name = 'ex1'
+    return render_template('only_stream.html')
+
+@app.route('/live-video/<experiment_name>', methods=['GET','POST'])
+def live_video_experiment(experiment_name):
     headers = Experiments.get_headers()
     data = Experiments.get_data(experiment_name)
     if not current_user.is_authenticated:
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
-
     return render_template('stream.html', title='Live Video', headers=headers, data=data)
 
 @app.route('/stream')

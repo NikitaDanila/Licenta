@@ -4,26 +4,26 @@
 <!-- <div class='container-fluid' >
     <img alt='my video'class='img-responsive border border-5'src="{{ url_for('stream') }}">
 </div> -->
+<h1>Experiment {{data[1]}}</h1>
 <link rel='stylesheet' href="/static/styles.css" />
-
-<div class="row">
-    <div class="col">
-        <img src="static/images/placeholder.jpg" alt="" height="720" width="1280">
-    </div>
-
-    <div class="col">
-        <table class="table">
-            <tr class="table__header">
-                {% for header in headers %}
-                    <th class="table__cell">{{ header }}</th>
+<div class="container-fluid">
+    <div class="row-">
+        <div class="col">
+            <img src="static/images/placeholder.jpg" alt="" height="480" width="720">
+        </div>
+        <div class="col">
+            <table class="table">
+                <tr class="table__header">
+                    {% for header in headers %}
+                        <th class="table__cell">{{ header }}</th>
+                    {% endfor %}
+                </tr>
+                
+                {% for cell in data%}
+                        <td class="table__cell">{{ cell }}</td>
                 {% endfor %}
-            </tr>
-            
-            {% for cell in data %}
-                    <td class="table__cell">{{ cell }}</td>
-            {% endfor %}
-        </table>
+            </table>
+        </div>
     </div>
 </div>
-
 {% endblock content %}

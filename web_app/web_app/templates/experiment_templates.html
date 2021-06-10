@@ -1,6 +1,5 @@
 {% extends "layout2.html" %}
 {% block content %}
-<h1>Video select page</h1>
 <!-- <img src= href={{ url_for('live_video') }}></img>s -->
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -13,12 +12,11 @@
                 </svg>
                 <div class="card-body">
                     <p class="card-text">
-                        This is a description for the paragraph
-                        this is justs a test
+                        Experiment ex1
                     </p>
                     <div class="d-flex justify-content-between align-items-center"> 
                         <div class="btn-group">
-                            <button id='test'>Live Video redirect</button>
+                            <button id='btn1'>Live Video redirect</button>
                         </dir>
                     </div>
                 </div>
@@ -34,12 +32,11 @@
             </svg>
             <div class="card-body">
                 <p class="card-text">
-                    This is a description for the paragraph
-                    this is justs a test
+                    Experiment ex2
                 </p>
                 <div class="d-flex justify-content-between align-items-center"> 
                     <div class="btn-group">
-                        <button id='test'>Live Video redirect</button>
+                        <button id='btn2'>Live Video redirect</button>
                     </dir>
                 </div>
             </div>
@@ -50,8 +47,11 @@
 
 
 <script type="text/javascript">
-    document.getElementById('test').onclick = function(){
-        location.href = " {{ url_for('live_video') }} "
+    document.getElementById('btn1').onclick = function(){
+        location.href = "/live-video/ex1"
+    }
+    document.getElementById('btn2').onclick = function(){
+        location.href = "/live-video/ex2 "
     }
 </script>
 {% endblock content %}
