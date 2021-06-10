@@ -2,7 +2,7 @@ from flask.globals import request
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm, CloseForm
-from database.models import User
+from database.models import User, Experiments
 from flask_login import login_user, current_user, logout_user
 from camera_pi import Camera
 
@@ -78,14 +78,16 @@ def experiment_select():
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
 
-@app.route('/live-video', methods=['GET'])
+@app.route('/live-video', methods=['GET','POST'])
 def live_video():
-    form = CloseForm()
+    experiment_name = 'ex1'
+    headers = Experiments.get_headers()
+    data = Experiments.get_data(experiment_name)
     if not current_user.is_authenticated:
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
 
-    return render_template('stream.html',form=form, title='Live Video')
+    return render_template('stream.html', title='Live Video', headers=headers, data=data)
 
 @app.route('/stream')
 def stream():
@@ -95,7 +97,6 @@ def stream():
     else:
         return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-    # return render_template('stream.html', title='Stream')
 
 @app.route('/admin')
 def admin():

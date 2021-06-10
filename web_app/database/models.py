@@ -12,8 +12,27 @@ from flask import redirect, url_for
 def load_user(user_id):
         return User.query.get(int(user_id))
 
+class Experiments(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    experiment_name = db.Column(db.String(30), nullable=False, unique=True)
+    data_colected = db.Column(db.Integer)
+
+    @classmethod
+    def get_headers(self):
+        header = ('id', 'experiment_name', 'data_colected')
+        return header
+
+    @classmethod
+    def get_data(self, experiment_name):
+        exper = Experiments.query.filter_by(experiment_name=experiment_name).first()
+        data = (str(exper.id), exper.experiment_name, str(exper.data_colected))
+        return data
+
+    def __repr__(self):
+            return f"id:\n{self.id}\n experiment_name: {self.experiment_name}\n data_colected: {self.data_colected}"
+
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True, unique=True,nullable=False)
+    id = db.Column(db.Integer, primary_key=True, unique=True,nullable=False, autoincrement=True)
     email = db.Column(db.String(30), nullable=False, unique=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     first_name = db.Column(db.String(20), nullable=False)
@@ -28,7 +47,7 @@ class User(db.Model, UserMixin):
         return self.admin
         
     def __repr__(self):
-        return f"Profesor:\nid_profesor: {self.id_prosefor}\nfirst_name: {self.first_name}\nlast_name: {self.last_name}"
+        return f"Profesor:\nid_profesor: {self.id}\nfirst_name: {self.first_name}\nlast_name: {self.last_name}"
 
 class MyModelView(ModelView):
     def is_accessible(self):
