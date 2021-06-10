@@ -71,8 +71,9 @@ def gen(camera):
 
 @app.route('/experiment-select')
 def experiment_select():
+    number_of_experiments = Experiments.query.count()
     if current_user.is_authenticated:
-        return render_template('experiment_templates.html', title='Experiment Templates')
+        return render_template('experiment_templates.html', title='Experiment Templates', number_of_experiments=number_of_experiments)
     else:
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))

@@ -16,6 +16,7 @@ class Experiments(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
     experiment_name = db.Column(db.String(30), nullable=False, unique=True)
     data_colected = db.Column(db.Integer)
+    decription = db.Column(db.String(300), default="")
 
     @classmethod
     def get_headers(self):
