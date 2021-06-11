@@ -2,8 +2,7 @@
 import io
 import time
 import picamera
-from base_camera import BaseCamera
-from web_app.forms import CloseForm
+from camera.base_camera import BaseCamera
 
 
 class Camera(BaseCamera):

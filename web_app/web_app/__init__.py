@@ -1,3 +1,4 @@
+from database.models import Experiments, MyAdminIndexView, MyModelView, User
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -8,7 +9,7 @@ from flask_admin import Admin
 app = Flask(__name__)
 
 
-# Database 
+# Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/pi/Licenta/web_app/database/site_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///E:\Licenta\web_app\database\site_database.db'
@@ -19,8 +20,11 @@ bcrypt = Bcrypt()
 
 # Login
 login_manager = LoginManager(app)
-from database.models import  Experiments, MyAdminIndexView, MyModelView, User
-admin = Admin(app, template_mode='bootstrap4', index_view=MyAdminIndexView(), url='/admin')
-admin.add_view(MyModelView(User,db.session))
-admin.add_view(MyModelView(Experiments,db.session))
+
+# Admin and admin view
+admin = Admin(app, template_mode='bootstrap4',
+              index_view=MyAdminIndexView(), url='/admin')
+admin.add_view(MyModelView(User, db.session))
+admin.add_view(MyModelView(Experiments, db.session))
+
 from web_app import routes
