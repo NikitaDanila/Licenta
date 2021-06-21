@@ -18,11 +18,11 @@
                         <th class="table__cell">{{ header }}</th>
                     {% endfor %}
                 </tr>
-                
-                {% for cell in data %}
-                        <td class="table__cell">{{ cell }}</td>
+            
+                <td class="table__cell">{{ data[0] }}</td>
+                <td class="table__cell">{{ data[1] }}</td>
+                <td class="table__cell">{{ data[2] }} cm</td>
 
-                {% endfor %}
             </table>
         </div>
     </div>
@@ -32,7 +32,7 @@
     $(document).ready(function(){
         setInterval(function(){
             $('#table').load(location.href +  " #table");
-        }, 1000);
+        }, 5000);
     }
     )
 </script>
