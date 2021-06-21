@@ -11,19 +11,29 @@
         <div class="col">
             <img class='border border-5 ' onerror='this.src="/static/images/placeholder.jpg"' src="{{ url_for('stream') }}" width="720" height="480">
         </div>
-        <div class="col">
-            <table class="table">
+        <div id='table' class="col">
+            <table  class="table">
                 <tr class="table__header">
                     {% for header in headers %}
                         <th class="table__cell">{{ header }}</th>
                     {% endfor %}
                 </tr>
                 
-                {% for cell in data%}
+                {% for cell in data %}
                         <td class="table__cell">{{ cell }}</td>
+
                 {% endfor %}
             </table>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $('#table').load(location.href +  " #table");
+        }, 1000);
+    }
+    )
+</script>
 {% endblock content %}

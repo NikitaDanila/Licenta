@@ -5,6 +5,10 @@ from web_app.forms import LoginForm, SignupForm
 from database.models import User, Experiments
 from flask_login import login_user, current_user, logout_user, login_required
 from camera.camera_pi import Camera
+from sensors.distance import distance, run
+from time import sleep
+
+
 
 """ Web pages (routes)"""
 
@@ -85,12 +89,13 @@ def live_video():
     if not current_user.is_authenticated:
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
-    return render_template('only_stream.html')
+    return render_template('only_stream.html', title="Stream Page")
 
 @app.route('/live-video/<experiment_name>', methods=['GET','POST'])
 def live_video_experiment(experiment_name):
     headers = Experiments.get_headers()
     data = Experiments.get_data(experiment_name)
+    distance_data = distance()
     if not current_user.is_authenticated:
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
