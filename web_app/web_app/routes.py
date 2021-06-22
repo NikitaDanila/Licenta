@@ -91,8 +91,8 @@ def live_video():
         return redirect(url_for('login'))
     return render_template('only_stream.html', title="Stream Page")
 
-@app.route('/live-video/<experiment_name>', methods=['GET','POST'])
-def live_video_experiment(experiment_name):
+@app.route('/live-video/<experiment_name>/<id>', methods=['GET','POST'])
+def live_video_experiment(experiment_name, id):
     headers = Experiments.get_headers()
     data = Experiments.get_data(experiment_name)
     distance_data = distance()

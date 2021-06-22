@@ -2,38 +2,50 @@
 {% block content %}
 <!-- <img src= href={{ url_for('live_video') }}></img>s -->
 <div class="container">
-    {% for i in range(number_of_experiments) %}
         <div class="col">
             <div class="col-md-auto">
                 <div class="card shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" 
-                        role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect>
-                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                    </svg>
+                    <img class="bd-placeholder-img card-img-top" onerror='this.src="/static/images/placeholder.jpg"' src="web_app/static/images/placeholder.jpg">
                     <div class="card-body">
                         <p class="card-text">
-                            {% for one_description in descriptions %}
-                                {{ one_description.description}}
-                            {% endfor %}
+                            {{descriptions[0].description}}
                         </p>
                         <div class="d-flex justify-content-between align-items-center"> 
                             <div class="btn-group">
-                                <button id='btn1'>Test ex4</button>
+                                <button id='btn1'>Go live to the experiment</button>
                             </dir>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {% endfor %}
+        <div class="col">
+            <div class="col-md-auto">
+                <div class="card shadow-sm">
+                    <img class="bd-placeholder-img card-img-top" onerror='this.src="/static/images/placeholder.jpg"' src="web_app/static/images/placeholder.jpg">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{descriptions[1].description}}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center"> 
+                            <div class="btn-group">
+                                <button id='btn2'>Go live to the experiment</button>
+                            </dir>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 
 
 <script type="text/javascript">
     document.getElementById('btn1').onclick = function(){
-        location.href = "/live-video/ex4"
+        location.href = "/live-video/Experiment 1/1"
+    }
+    document.getElementById('btn2').onclick = function(){
+        location.href = "/live-video/Experiment 2/2"
     }
 </script>
 {% endblock content %}

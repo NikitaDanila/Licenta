@@ -24,12 +24,14 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <div class="container">
                 <div>
+                    {% if current_user.is_authenticated %}
                     <a class="navbar-brand mr-4" href="{{ url_for('live_video') }}">Stream</a>
                     <a class="navbar-brand mr-4" href="{{ url_for('experiment_select') }}">Experiment Select</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
                         </span>
                     </button>
+                    {% endif %}
                 </div>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
                     <div class="navbar-nav">
