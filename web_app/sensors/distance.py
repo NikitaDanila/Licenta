@@ -41,6 +41,8 @@ def distance():
     distance = (TimeElapsed * 34300) / 2
     
     ex4 = Experiments.query.filter_by(id=4).first()
+    ex1 = Experiments.query.filter_by(id=1).first()
+    ex1.data_colected = distance
     ex4.data_colected = distance
     db.session.commit()
 

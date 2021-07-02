@@ -10,6 +10,7 @@ class Camera(BaseCamera):
     def frames():
         with picamera.PiCamera() as camera:
             camera.resolution = (1280, 720)
+            camera.awb_mode = 'auto'
             camera.rotation = 270
             # let camera warm up
             time.sleep(2)
