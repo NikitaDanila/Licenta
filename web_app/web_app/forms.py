@@ -31,7 +31,3 @@ class LoginForm(FlaskForm):
                              validators=[DataRequired(message='Please enter a password')])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
-
-
-class CloseForm(FlaskForm):
-    close_button = SubmitField('Close')

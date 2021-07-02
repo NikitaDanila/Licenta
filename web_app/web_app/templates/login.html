@@ -1,11 +1,11 @@
 <meta charset="utf-8" />
 {% extends "layout2.html" %} {% block content %}
-<div class="content-section">
+<div class="" style="display: grid; place-items: center;">
   <!--The form is passed from the route-->
   <form method="POST" action="" class="form-group justify-content-center">
     {{ form.hidden_tag() }}
-      <fieldset class="">
-        <legend class="">Log in</legend>
+      <fieldset style="display: grid; place-items: center;">
+        <legend style="display: grid; place-items: center;">Log in</legend>
 
           <div class="form-group">
             {{ form.email.label(class="") }}
@@ -31,7 +31,7 @@
         
         <!--Login <div>-->
         <div>
-          <div class="">{{ form.submit(class="btn btn-primary") }}</div>
+          <div style="display: grid; place-items: center;">{{ form.submit(class="btn btn-primary") }}</div>
           <small class="text-muted ml-2">
             <a href="#">Forgot Password?</a>
           </small>

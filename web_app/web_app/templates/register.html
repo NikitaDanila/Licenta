@@ -1,10 +1,10 @@
 {% extends "layout2.html" %}
 {% block content %}
-
+<div style="display: grid; place-items: center;">
   <form method="POST" action="">
     {{ form.hidden_tag() }}
-    <fieldset class="content-section col-3 align-content-between">
-      <legend>Join Today</legend>
+    <fieldset class="" >
+      <legend style="display: grid; place-items: center;">Join Today</legend>
       <!--firts_name field-->
       <div class="form-group">
         {{ form.first_name.label(class="") }}
@@ -68,18 +68,19 @@
         {% endif %}
         <!--END Profesor Token Field -->
         <!--Submit Button-->
-    <div class="mx-auto">
+    <div class="mx-auto" style="display: grid; place-items: center; margin: 1em;">
       {{ form.submit(class="btn btn-primary.disabled btn-primary") }}
     </div>  
       </div>
     </fieldset>
   </form>
 
-<div class="container-fluid mx-auto">
+<div class="" style="display: grid; place-items: center;">
   <small class="text-muted">
     <!--For the url_for you need to pass the name of the function 
         not of the decorator-->
     Already have an account? <a class="" href="{{url_for('login')}}">Sign In</a>
   </small>
+</div>
 </div>
 {% endblock content %}
