@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, HiddenField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
-
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from database.models import User
 
 class SignupForm(FlaskForm):
     """Creates the form for the sign up page"""
@@ -31,3 +31,22 @@ class LoginForm(FlaskForm):
                              validators=[DataRequired(message='Please enter a password')])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email',
+                        validators=[DataRequired(), Email(message='Please enter a valid Email')])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with this email.')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password',
+                             validators=[DataRequired(), Length(min=2, max=20, message='Please enter a valid Password')])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), Length(min=2, max=20, message='Please enter a valid Password'),
+                                                 EqualTo('password', message='The passwords do not match')])
+    submit = SubmitField('Reset Password')

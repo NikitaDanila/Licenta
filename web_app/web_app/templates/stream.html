@@ -6,13 +6,15 @@
 </div> -->
 <h1>Experiment {{data[id]}}</h1>
 <link rel='stylesheet' href="/static/main.css" />
-<div class="container-fluid">
-    <div class="row-">
+<div class="container-fluid" style="display:flex; flex-direction: row;">
+
+        <!-- stream -->
         <div class="col">
-            <img class='border border-5 ' onerror='this.src="/static/images/placeholder.jpg"' src="{{ url_for('stream') }}" width="720" height="480">
+            <img class='border border-5 ' onerror='this.src="/static/images/placeholder.jpg"' src="{{ url_for('stream') }}" width="1280" height="720">
         </div>
+        <!-- tabel -->
         <div id='table' class="col">
-            <table  class="table">
+            <table  class="table" style="margin: 1em;">
                 <tr class="table__header">
                     {% for header in headers %}
                         <th class="table__cell">{{ header }}</th>
@@ -22,10 +24,9 @@
                 <td class="table__cell">{{ data[0] }}</td>
                 <td class="table__cell">{{ data[1] }}</td>
                 <td class="table__cell">{{ data[2] }} cm</td>
-
             </table>
         </div>
-    </div>
+
 </div>
 
 <script>

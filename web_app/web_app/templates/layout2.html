@@ -52,12 +52,12 @@
     </header>
     <main class="container-fluid">
         <div class='row'>
-          <div class="col-sm-6">
+          <div class="col-sm-6 mx-auto">
             <!--Showing the messages-->
             {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}" role='alert'>
+                    <div class="alert alert-{{ category }} mx-auto" role='alert' style="display: grid; place-items: center; width: auto;">
                         {{ message }}
                         <!--Script for the messages to disappear-->
                         <script type="text/javascript">

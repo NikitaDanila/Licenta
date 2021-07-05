@@ -70,8 +70,9 @@
         {{ menu_icon(item) }}{{ item.name }}</a>
       </li>
       {%- endif -%}
-    {% endif -%}
-  {% endfor %}
+      {% endif -%}
+      {% endfor %}
+      <a href="{{ url_for('experiment_select') }}" class="nav-link" style='margin-left: 45em'>Go Back</a>
 {% endmacro %}
 
 {% macro menu_links(links=None) %}
