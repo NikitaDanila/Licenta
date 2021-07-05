@@ -2,10 +2,11 @@
 {% block content %}
 <!-- <img src= href={{ url_for('live_video') }}></img>s -->
 <div class="container">
-        <div class="row">
+    <div class="row" style="margin-bottom: 1em;">
             <div class="col-sm">
                 <div class="card shadow-sm">
-                    <img class="bd-placeholder-img card-img-top" style="" onerror='this.src="/static/images/distance_sensor.png"' src="web_app/static/images/distance_sensor.png">
+                    <h3 class="card-title" style="text-align: center;">{{descriptions[0].experiment_name}}</h3>
+                    <div style="background-image: url(/static/images/distance_sensor.png); height: 400px; background-size: cover; background-repeat: no-repeat;background-position: center center;"></div>
                     <div class="card-body">
                         <p class="card-text">
                             {{descriptions[0].description}}
@@ -18,11 +19,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
         <div class="col-sm">
             <div class="">
                 <div class="card shadow-sm">
-                    <img class="bd-placeholder-img card-img-top" onerror='this.src="/static/images/placeholder.jpg"' src="web_app/static/images/placeholder.jpg">
+                    <h3 class="card-title" style="text-align: center;">{{descriptions[1].experiment_name}}</h3>
+                    <div style="background-image: url(/static/images/relay.png); height: 400px; background-size: cover; background-repeat: no-repeat;background-position: center center;"></div>
                     <div class="card-body" style="width: 100%;">
                         <p class="card-text">
                             {{descriptions[1].description}}
@@ -32,18 +34,55 @@
                 </div>
             </div>
         </div>
-    
-        
+    </div>
+    <div class="row"style="margin-top: 1em;">
+        <div class="col-sm">
+            <div class="card shadow-sm">
+                <h3 class="card-title" style="text-align: center;">{{descriptions[2].experiment_name}}</h3>
+                <div style="background-image: url(/static/images/placeholder.jpg); height: 400px; background-size: cover; background-repeat: no-repeat;background-position: center center;"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{descriptions[2].description}}
+                    </p>
+                    <div class=""> 
+                        <div class="">
+                            <button class='btn btn-primary btn-lg btn-block'id='btn3'>Go live to the experiment</button>
+                        </dir>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="">
+            <div class="card shadow-sm">
+                <h3 class="card-title" style="text-align: center;">{{descriptions[3].experiment_name}}</h3>
+                <div style="background-image: url(/static/images/placeholder.jpg); height: 400px; background-size: cover; background-repeat: no-repeat;background-position: center center;"></div>
+                <div class="card-body" style="width: 100%;">
+                    <p class="card-text">
+                        {{descriptions[3].description}}
+                    </p>
+                    <button class='btn btn-primary btn-lg btn-block'id='btn4'>Go live to the experiment</button>
+                </div>
+            </div>
+        </div>
+    </div>       
 </div>
 
 
 
 <script type="text/javascript">
     document.getElementById('btn1').onclick = function(){
-        location.href = "/live-video/Experiment 1/1"
+        location.href = "/live-video/Distance"
     }
     document.getElementById('btn2').onclick = function(){
-        location.href = "/live-video/Experiment 2/2"
+        location.href = "/live-video/Experiment 2"
+    }
+    document.getElementById('btn3').onclick = function(){
+        location.href = "#"
+    }
+    document.getElementById('btn4').onclick = function(){
+        location.href = "#"
     }
 </script>
 {% endblock content %}

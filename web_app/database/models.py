@@ -19,7 +19,7 @@ class Experiments(db.Model):
 
     @classmethod
     def get_headers(self):
-        header = ('id', 'experiment_name', 'data_colected')
+        header = ('Experiment Id', 'Experiment Name', 'Data Colected')
         return header
 
     @classmethod
