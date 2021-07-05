@@ -1,9 +1,11 @@
 from flask_admin import AdminIndexView
+from sqlalchemy.orm import backref
 from web_app import db, login_manager, app
 from flask_login import UserMixin, current_user
 from flask_admin.contrib.sqla import ModelView
 from flask import redirect, url_for, flash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -14,23 +16,27 @@ class Experiments(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False,
                    unique=True, autoincrement=True)
     experiment_name = db.Column(db.String(30), nullable=False, unique=True)
-    data_colected = db.Column(db.Numeric(scale=2))
     description = db.Column(db.String(300), default="")
-
+    data = db.relationship('ExperimentData', backref='experiment_id')
     @classmethod
     def get_headers(self):
         header = ('Experiment Id', 'Experiment Name', 'Data Colected')
         return header
 
     @classmethod
-    def get_data(self, experiment_name):
-        exper = Experiments.query.filter_by(
-            experiment_name=experiment_name).first()
-        data = (str(exper.id), exper.experiment_name, str(exper.data_colected))
-        return data
+    def get_data(self, id):
+        exp = Experiments.query.filter_by(id=id).first()
+        return exp
 
     def __repr__(self):
-        return f"id:\n{self.id}\n experiment_name: {self.experiment_name}\n data_colected: {self.data_colected}"
+        return f"id:\n{self.id}\n experiment_name: {self.experiment_name}"
+
+class ExperimentData(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False, 
+                    unique=True, autoincrement=True)
+    
+    data_colected = db.Column(db.Numeric(scale=2), default=0)
+    experiment_id_relation = db.Column(db.Integer, db.ForeignKey('experiments.id'))
 
 
 class User(db.Model, UserMixin):
@@ -74,6 +80,7 @@ class MyModelView(ModelView):
     def inaccessible_callback(self, name, **kwargs):
         flash("You don't have permissions", 'danger')
         return redirect(url_for('login'))
+
 
 
 class MyAdminIndexView(AdminIndexView):

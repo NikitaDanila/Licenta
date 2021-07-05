@@ -2,7 +2,7 @@ from flask_login.utils import login_required
 from web_app import app, db, bcrypt
 from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm, RequestResetForm, ResetPasswordForm
-from database.models import User, Experiments
+from database.models import ExperimentData, User, Experiments
 from flask_login import login_user, current_user, logout_user, login_required
 from camera.camera_pi import Camera
 from sensors.distance import distance, run
@@ -91,15 +91,15 @@ def live_video():
         return redirect(url_for('login'))
     return render_template('only_stream.html', title="Stream Page")
 
-@app.route('/live-video/<experiment_name>', methods=['GET','POST'])
-def live_video_experiment(experiment_name):
-    headers = Experiments.get_headers()
-    data = Experiments.get_data(experiment_name)
-    distance_data = distance()
+@app.route('/live-video/<experiment_name>/<id>', methods=['GET','POST'])
+def live_video_experiment(experiment_name,id):
     if not current_user.is_authenticated:
         flash('Please log in to access', 'danger')
         return redirect(url_for('login'))
-    return render_template('stream.html', title='Live Video', headers=headers, data=data)
+    headers = Experiments.get_headers()
+    data = Experiments.get_data(id)
+    distance_data = run()
+    return render_template('stream.html', title='Live Video',data=data, headers=headers,distance_data=distance_data)
 
 @app.route('/stream')
 def stream():

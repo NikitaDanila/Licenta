@@ -23,11 +23,11 @@
         <div class="col-sm">
             <div class="">
                 <div class="card shadow-sm">
-                    <h3 class="card-title" style="text-align: center;">{{descriptions[1].experiment_name}}</h3>
+                    <h3 class="card-title" style="text-align: center;">{{descriptions[0].experiment_name}}</h3>
                     <div style="background-image: url(/static/images/relay.png); height: 400px; background-size: cover; background-repeat: no-repeat;background-position: center center;"></div>
                     <div class="card-body" style="width: 100%;">
                         <p class="card-text">
-                            {{descriptions[1].description}}
+                            {{descriptions[0].description}}
                         </p>
                         <button class='btn btn-primary btn-lg btn-block'id='btn2'>Go live to the experiment</button>
                     </div>
@@ -38,11 +38,11 @@
     <div class="row"style="margin-top: 1em;">
         <div class="col-sm">
             <div class="card shadow-sm">
-                <h3 class="card-title" style="text-align: center;">{{descriptions[2].experiment_name}}</h3>
+                <h3 class="card-title" style="text-align: center;">{{descriptions[0].experiment_name}}</h3>
                 <div style="background-image: url(/static/images/placeholder.jpg); height: 400px; background-size: cover; background-repeat: no-repeat;background-position: center center;"></div>
                 <div class="card-body">
                     <p class="card-text">
-                        {{descriptions[2].description}}
+                        {{descriptions[0].description}}
                     </p>
                     <div class=""> 
                         <div class="">
@@ -56,11 +56,11 @@
     <div class="col-sm">
         <div class="">
             <div class="card shadow-sm">
-                <h3 class="card-title" style="text-align: center;">{{descriptions[3].experiment_name}}</h3>
+                <h3 class="card-title" style="text-align: center;">{{descriptions[0].experiment_name}}</h3>
                 <div style="background-image: url(/static/images/placeholder.jpg); height: 400px; background-size: cover; background-repeat: no-repeat;background-position: center center;"></div>
                 <div class="card-body" style="width: 100%;">
                     <p class="card-text">
-                        {{descriptions[3].description}}
+                        {{descriptions[0].description}}
                     </p>
                     <button class='btn btn-primary btn-lg btn-block'id='btn4'>Go live to the experiment</button>
                 </div>
@@ -73,10 +73,10 @@
 
 <script type="text/javascript">
     document.getElementById('btn1').onclick = function(){
-        location.href = "/live-video/Distance"
+        location.href = "/live-video/Distance/1"
     }
     document.getElementById('btn2').onclick = function(){
-        location.href = "/live-video/Experiment 2"
+        location.href = "/live-video/Distance/1"
     }
     document.getElementById('btn3').onclick = function(){
         location.href = "#"

@@ -19,12 +19,13 @@ bcrypt = Bcrypt()
 # Login
 login_manager = LoginManager(app)
 
-from database.models import Experiments, MyAdminIndexView, MyModelView, User
+from database.models import ExperimentData, Experiments, MyAdminIndexView, MyModelView, User
 
 # Admin and admin view
 admin = Admin(app, template_mode='bootstrap4',
               index_view=MyAdminIndexView(), url='/admin')
 admin.add_view(MyModelView(User, db.session))
+admin.add_view(MyModelView(ExperimentData, db.session))
 admin.add_view(MyModelView(Experiments, db.session))
 
 from web_app import routes

@@ -2,7 +2,7 @@
 import RPi.GPIO as GPIO
 import time
 from web_app import db
-from database.models import Experiments
+from database.models import ExperimentData
 
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
@@ -40,22 +40,19 @@ def distance():
     # and divide by 2, because there and back
     distance = (TimeElapsed * 34300) / 2
     
-    ex4 = Experiments.query.filter_by(id=4).first()
-    ex1 = Experiments.query.filter_by(id=1).first()
-    ex1.data_colected = distance
-    ex4.data_colected = distance
+    ex = ExperimentData(data_colected=distance, experiment_id_relation=1)
+    db.session.add(ex)
     db.session.commit()
-
 
     return distance
  
 def run():
     try:
+        
         while True:
             dist = distance()
-            print (f"Measured Distance = { dist } cm")
-            time.sleep(5)
- 
+            time.sleep(30)
+            return dist
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")

@@ -1,0 +1,31 @@
+<meta charset="utf-8" />
+{% extends "layout2.html" %} {% block content %}
+<div class="" style="display: grid; place-items: center;">
+  <!--The form is passed from the route-->
+  <form method="POST" action="" class="form-group justify-content-center">
+    {{ form.hidden_tag() }}
+      <fieldset style="display: grid; place-items: center;">
+        <legend style="display: grid; place-items: center;">Reset Password</legend>
+
+        <div class="form-group">
+            {{ form.password.label(class="") }}
+            {{ form.password(class='form-control py-1')}}
+            
+            {% if form.password.errors %}
+            <div class="errors">{% for error in form.password.errors %}{{ error }}{% endfor %}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.confirm_password.label(class="") }}
+            {{ form.confirm_password(class='form-control py-1')}}
+            
+            {% if form.confirm_password.errors %}
+            <div class="errors">{% for error in form.confirm_password.errors %}{{ error }}{% endfor %}</div>
+            {% endif %}
+        </div>
+        <!--Login <div>-->
+          <div style="display: grid; place-items: center; margin: 1em;">{{ form.submit(class="btn btn-primary") }}</div>
+      </fieldset>
+  </form>
+</div>
+{% endblock content %}

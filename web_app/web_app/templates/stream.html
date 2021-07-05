@@ -4,7 +4,7 @@
 <!-- <div class='container-fluid' >
     <img alt='my video'class='img-responsive border border-5'src="{{ url_for('stream') }}">
 </div> -->
-<h1>Experiment {{data[id]}}</h1>
+<h1>Experiment name: {{data.experiment_name}}</h1>
 <link rel='stylesheet' href="/static/main.css" />
 <div class="container-fluid" style="display:flex; flex-direction: row;">
 
@@ -21,9 +21,9 @@
                     {% endfor %}
                 </tr>
             
-                <td class="table__cell">{{ data[0] }}</td>
-                <td class="table__cell">{{ data[1] }}</td>
-                <td class="table__cell">{{ data[2] }} cm</td>
+                <td class="table__cell">{{data.id}}</td>
+                <td class="table__cell">{{data.experiment_name}}</td>
+                <td class="table__cell">{{ distance_data }} cm</td>
             </table>
         </div>
 
@@ -33,7 +33,7 @@
     $(document).ready(function(){
         setInterval(function(){
             $('#table').load(location.href +  " #table");
-        }, 2000);
+        }, 1000);
     }
     )
 </script>
