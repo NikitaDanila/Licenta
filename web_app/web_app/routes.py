@@ -1,9 +1,11 @@
+import email
 from flask_login.utils import login_required
-from web_app import app, db, bcrypt
+from web_app import app, db, bcrypt, mail
 from flask import render_template, url_for, flash, redirect, Response
 from web_app.forms import LoginForm, SignupForm, RequestResetForm, ResetPasswordForm
 from database.models import ExperimentData, User, Experiments
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Message
 from camera.camera_pi import Camera
 from sensors.distance import distance, run
 from time import sleep
@@ -124,7 +126,12 @@ def to_do():
     return render_template('to-do.html', title='To do')
 
 def send_reset_email(user):
-    pass
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request', 
+                    sender='danila.nikitamihai@gmail.com', recipients=[user.email])
+    msg.body = f''' To reset your password, please visit the following link:
+{url_for('reset_token', token=token, _external=True)}
+'''
 
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
@@ -135,6 +142,7 @@ def reset_request():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
         flash('An email has been sent to your adress.', 'info')
+        return redirect(url_for('login'))
     return render_template('reset_request.html', title='Reset Password', form=form)
 
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
@@ -146,4 +154,10 @@ def reset_token(token):
         flash('That is an invalid or expired Token', 'warning')
         return redirect(url_for('reset_request'))
     form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash(f'Your password has been updated!', 'success')
+        return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
