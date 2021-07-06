@@ -98,7 +98,7 @@ def live_video_experiment(experiment_name,id):
         return redirect(url_for('login'))
     headers = Experiments.get_headers()
     data = Experiments.get_data(id)
-    distance_data = run()
+    distance_data = distance()
     return render_template('stream.html', title='Live Video',data=data, headers=headers,distance_data=distance_data)
 
 @app.route('/stream')
@@ -123,6 +123,9 @@ def admin():
 def to_do():
     return render_template('to-do.html', title='To do')
 
+def send_reset_email(user):
+    pass
+
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
@@ -130,6 +133,8 @@ def reset_request():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('An email has been sent to your adress.', 'info')
     return render_template('reset_request.html', title='Reset Password', form=form)
 
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
