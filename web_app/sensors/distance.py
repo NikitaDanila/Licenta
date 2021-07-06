@@ -41,17 +41,16 @@ def distance():
     distance = (TimeElapsed * 34300) / 2
     
     ex = ExperimentData(data_colected=distance, experiment_id_relation=1)
+    time.sleep(2)
     db.session.add(ex)
     db.session.commit()
-
+    
     return distance
  
 def run():
     try:
-        
         while True:
             dist = distance()
-            time.sleep(30)
             return dist
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
