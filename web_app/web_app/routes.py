@@ -132,6 +132,7 @@ def send_reset_email(user):
     msg.body = f''' To reset your password, please visit the following link:
 {url_for('reset_token', token=token, _external=True)}
 '''
+    mail.send(msg)
 
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
