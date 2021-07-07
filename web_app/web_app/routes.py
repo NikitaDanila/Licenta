@@ -101,6 +101,7 @@ def live_video_experiment(experiment_name,id):
     headers = Experiments.get_headers()
     data = Experiments.get_data(id)
     distance_data = distance()
+    distance_data = round(distance_data, 2)
     return render_template('stream.html', title='Live Video',data=data, headers=headers,distance_data=distance_data)
 
 @app.route('/stream')
